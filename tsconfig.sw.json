@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "module": "esnext",
+    "lib": ["esnext", "dom", "webworker"],
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "target": "esnext",
+    "outDir": "./public"
+  },
+  "include": ["src/sw.ts"]
+}
