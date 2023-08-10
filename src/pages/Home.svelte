@@ -8,6 +8,7 @@
     isDownloadReady,
     isOpen,
     isPreloadingFFmpeg,
+    showFullUi,
     logger,
     selectedFiles,
     selectedFormat,
@@ -30,7 +31,9 @@
   let containerTransitionEnd = false;
 
   $: {
-    if ($selectedFiles.length > 0) {
+    if ($showFullUi) {
+      $isOpen = true;
+    } else if ($selectedFiles.length > 0) {
       $isOpen = true;
     }
 

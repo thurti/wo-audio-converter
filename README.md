@@ -34,4 +34,5 @@ Cross Origin Isolation Headers: https://developer.chrome.com/blog/enabling-share
 - add basic plainwright tests
 - add social graph sharing stuff
 - install goaccess
-- store/restore settings in localstorage
+- show expert stuff panel if last used was custom command
+- fix settings on startup bug

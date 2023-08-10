@@ -1,5 +1,6 @@
 <script lang="ts">
   import {
+    config,
     type ConfigDefaults,
     type ConfigFormatOption,
     type ConfigFormats,
@@ -8,7 +9,11 @@
   import Setting from "./Setting.svelte";
   import UiDetails from "./ui/UIDetails.svelte";
   import UiHeading from "./ui/UIHeading.svelte";
-  import { isCustomCommand, type SelectedSettings } from "@/store";
+  import {
+    isCustomCommand,
+    showAdvancedSettings,
+    type SelectedSettings,
+  } from "@/store";
 
   export let formats: ConfigFormats;
   export let settings: ConfigSettings;
@@ -39,7 +44,7 @@
   {#if $isCustomCommand}
     <p class="text-center">Custom Command is use.</p>
   {:else if formatSettings}
-    <UiDetails>
+    <UiDetails open={$showAdvancedSettings}>
       <slot slot="summary">
         <UiHeading level={4} class="inline-block">Advanced Settings</UiHeading>
       </slot>

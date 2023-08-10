@@ -9,6 +9,7 @@ export const config = {
   github: "https://github.com/thurti/wo-audio-converter",
   title: "Audio File Converter",
   cachePrefix: "wo-audio-converter",
+  localStoragePrefix: "wo-audio-converter",
   notificationIcon: "/icons/android-chrome-192x192.png",
   description: "",
   colorScheme: "zinc-emerald",

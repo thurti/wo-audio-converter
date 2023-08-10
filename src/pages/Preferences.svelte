@@ -2,13 +2,31 @@
   import UiEnableNotifications from "@/components/ui/UIEnableNotifications.svelte";
   import UiInputCheckbox from "@/components/ui/UIInputCheckbox.svelte";
   import UiSection from "@/components/ui/UISection.svelte";
-  import { badgeOnConversionReady, notifyOnConversionReady } from "@/store";
+  import {
+    badgeOnConversionReady,
+    showFullUi,
+    notifyOnConversionReady,
+    showAdvancedSettings,
+  } from "@/store";
   import PageContainer from "./PageContainer.svelte";
 
   const isBadgeSupported = "setAppBadge" in navigator;
 </script>
 
 <PageContainer title="Preferences">
+  <UiSection>
+    <slot slot="heading">General</slot>
+    <form class="space-y-4">
+      <UiInputCheckbox
+        label="Show full UI on startup."
+        bind:checked={$showFullUi}
+      />
+      <UiInputCheckbox
+        label="Always show advanced settings."
+        bind:checked={$showAdvancedSettings}
+      />
+    </form>
+  </UiSection>
   <UiSection>
     <slot slot="heading">Notifications</slot>
     <form class="space-y-4">
