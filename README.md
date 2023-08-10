@@ -33,6 +33,5 @@ Cross Origin Isolation Headers: https://developer.chrome.com/blog/enabling-share
 - add a "panic" button to completly remove the service worker and reload the page in case nothing works anymore -> maybe make updater its own svelte "app"
 - add basic plainwright tests
 - add social graph sharing stuff
-- fix npm install svelte testing lib bug
 - install goaccess
 - store/restore settings in localstorage
