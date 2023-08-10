@@ -26,7 +26,7 @@
     {#if $conversionCount > 0}
       If my calculations are correct and you have not
       <span class="font-thin">h4ckZ0rEd</span>
-      with the dev tools, you've converted
+      with dev tools, you've converted
       <span
         class="mx-0.5 inline-block rounded-md border-white bg-slate-800 bg-opacity-30 px-2 py-0 pt-0.5"
         >{Math.round($count)}</span

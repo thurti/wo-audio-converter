@@ -15,7 +15,7 @@
       the latest version installed.
     </p>
     <p>
-      Please also check if you have <b>disabled cookies</b> in your browser settings.
+      Please also check if you have <b>enabled cookies</b> in your browser settings.
       If cookies are disabled completly the browser doesn't allow to store any data
       locally. This includes caching the data in a service worker for offline capability.
     </p>
@@ -23,12 +23,13 @@
 
   <UiSection id="cache">
     <slot slot="heading">
-      Why do files get preloaded everytime, aka why do my files not cache?
+      Why does application data gets preloaded everytime, aka why does my
+      application data not cache?
     </slot>
     <p>
-      The files are stored in the browsers cache storage. If you have set your
-      browser to delete all data (cookies and website data) on exit, the files
-      will be deleted.
+      The application data is stored in the browsers cache storage. If you have
+      set your browser to delete all data (cookies and website data) on close,
+      the application data will be deleted.
     </p>
   </UiSection>
 
@@ -37,7 +38,7 @@
     <p>
       Your browser needs to support <b>Shared Array Buffer</b>. Chrome 68+,
       Firefox 79+, Safari 15.2+ and Edge 79+ should work. You can get more
-      supported browsers at
+      informations on supported browsers at
       <a href="https://caniuse.com/?search=sharedarraybuffer" target="_blank"
         >caniuse.com</a
       >.
@@ -56,11 +57,13 @@
   </UiSection>
 
   <UiSection id="who">
-    <slot slot="heading">Who are you and why you've created this?</slot>
+    <slot slot="heading">Who are you and why have you created this?</slot>
     <p>
-      I'm a freelance webdevolper with a passion for web apps. I've created as a
-      side project to learn more about progressive web apps. Check out my site
-      at <a href="https://thomashurtig.de" target="_blank">thomashurtig.de</a>.
+      I'm a freelance webdevolper with a passion for web apps. I've created this
+      as a side project to learn more about progressive web apps. Check out my
+      site at <a href="https://thomashurtig.de" target="_blank"
+        >thomashurtig.de</a
+      >.
     </p>
   </UiSection>
 </PageContainer>
