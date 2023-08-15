@@ -41,6 +41,16 @@ export function createSettingsFromString(value: string): SelectedSettings {
   };
 }
 
+export function settingsIsForFormat(
+  settings: SelectedSettings,
+  formatId: string
+): boolean {
+  if (!settings || !formatId) return false;
+  return Object.values(settings).some((setting) =>
+    setting.id.startsWith(formatId)
+  );
+}
+
 export function getOutputFilename(
   filename: string,
   format: ConfigFormatOption

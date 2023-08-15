@@ -10,6 +10,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     restoreMocks: true,
+    setupFiles: ["./tests/global-before.ts"],
   },
   resolve: {
     alias: {

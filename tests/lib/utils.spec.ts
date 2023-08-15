@@ -14,6 +14,7 @@ import {
   getFileExtension,
   saveFileAs,
   saveAllFiles,
+  settingsIsForFormat,
 } from "@/lib/utils";
 import { describe } from "vitest";
 
@@ -186,6 +187,49 @@ describe("lib/utils", () => {
           value: "-acodec pcm_s16le -ar 44100",
         },
       });
+    });
+  });
+
+  describe("#settingsIsForFormat()", () => {
+    it("should return false if no settings are specified", () => {
+      const isForFormat = settingsIsForFormat(null, null);
+      expect(isForFormat).toBe(false);
+    });
+
+    it("should return false if settings are not for the format", () => {
+      const settings = {
+        "bit-depth": {
+          id: "wav-16",
+          label: "16 bit",
+          value: "-acodec pcm_s16le",
+        },
+        "sample-rate": {
+          id: "wav-44.1",
+          label: "44.1 kHz",
+          value: "-ar 44100",
+        },
+      };
+
+      const isForFormat = settingsIsForFormat(settings, "mp3");
+      expect(isForFormat).toBe(false);
+    });
+
+    it("should return true if settings are for the format", () => {
+      const settings = {
+        "bit-depth": {
+          id: "wav-16",
+          label: "16 bit",
+          value: "-acodec pcm_s16le",
+        },
+        "sample-rate": {
+          id: "wav-44.1",
+          label: "44.1 kHz",
+          value: "-ar 44100",
+        },
+      };
+
+      const isForFormat = settingsIsForFormat(settings, "wav");
+      expect(isForFormat).toBe(true);
     });
   });
 

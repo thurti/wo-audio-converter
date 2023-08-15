@@ -14,6 +14,7 @@
     showAdvancedSettings,
     type SelectedSettings,
   } from "@/store";
+  import { settingsIsForFormat } from "@/lib/utils";
 
   export let formats: ConfigFormats;
   export let settings: ConfigSettings;
@@ -23,7 +24,13 @@
 
   $: formatSettings = structuredClone(settings[selectedFormat?.id]);
   $: {
-    if (!$isCustomCommand) {
+    // set settings from defaults only if a new format is selected or no selectedSettings are present
+    // ignore if custom command is used
+    if (
+      (!selectedSettings ||
+        !settingsIsForFormat(selectedSettings, selectedFormat?.id)) &&
+      !$isCustomCommand
+    ) {
       selectedSettings = structuredClone(
         defaults.settings[selectedFormat?.id] ?? {}
       );

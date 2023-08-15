@@ -23,8 +23,8 @@ const settings = {
       label: "Bitrate",
       value: "bitrate",
       options: [
-        { id: "vbr-0", label: "VBR 245 kbit/s", value: "-q:a 0" },
-        { id: "vbr-2", label: "VBR 190 kbit/s", value: "-q:a 2" },
+        { id: "mp3-vbr-0", label: "VBR 245 kbit/s", value: "-q:a 0" },
+        { id: "mp3-vbr-2", label: "VBR 190 kbit/s", value: "-q:a 2" },
       ],
     },
     {
@@ -49,7 +49,7 @@ const defaults = {
   settings: {
     mp3: {
       bitrate: {
-        id: "vbr-0",
+        id: "mp3-vbr-0",
         label: "245 kbit/s",
         value: "-q:a 0",
       },
@@ -126,7 +126,7 @@ describe("Settings", () => {
     await user.click(screen.getByLabelText("VBR 190 kbit/s"));
 
     expect(get(selectedSettings)).toEqual({
-      bitrate: { id: "vbr-2", label: "VBR 190 kbit/s", value: "-q:a 2" },
+      bitrate: { id: "mp3-vbr-2", label: "VBR 190 kbit/s", value: "-q:a 2" },
       "sample-rate": { id: "16", label: "16 kHz", value: "-ar 16000" },
     });
   });
