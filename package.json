@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "vite",
     "test": "vitest --watch",
-    "build": "vite build",
+    "build": "npm run copy-ffmpeg && vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "copy-ffmpeg": "mkdir -p ./public/lib/ffmpeg/core/dist && cp ./node_modules/@ffmpeg/core/dist/* ./public/lib/ffmpeg/core/dist"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.1",
