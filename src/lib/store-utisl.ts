@@ -1,12 +1,16 @@
 import { config } from "@/config";
 import { writable, type Writable } from "svelte/store";
 
+const prefix = config?.localStoragePrefix
+  ? `${config.localStoragePrefix}-`
+  : "";
+
 export function createPersistentNumberStore(
   name: string,
   defaultValue: number
 ): Writable<number> {
   const { subscribe, set, update } = writable<number>(defaultValue);
-  const storeName = `${config.localStoragePrefix}-${name}`;
+  const storeName = `${prefix}${name}`;
 
   try {
     set(Number(localStorage.getItem(storeName) ?? defaultValue.toString()));
@@ -34,7 +38,7 @@ export function createPersistentBooleanStore(
   defaultValue: boolean
 ): Writable<boolean> {
   const { subscribe, set, update } = writable<boolean>(defaultValue);
-  const storeName = `${config.localStoragePrefix}-${name}`;
+  const storeName = `${prefix}${name}`;
 
   try {
     set(localStorage.getItem(storeName) === "true" ?? defaultValue);
@@ -62,10 +66,14 @@ export function createPersistentJsonStore<T>(
   defaultValue: T
 ): Writable<T> {
   const { subscribe, set, update } = writable<T>(defaultValue);
-  const storeName = `${config.localStoragePrefix}-${name}`;
+  const storeName = `${prefix}${name}`;
 
   try {
-    set(JSON.parse(localStorage.getItem(storeName) ?? defaultValue.toString()));
+    set(
+      JSON.parse(
+        localStorage.getItem(storeName) ?? JSON.stringify(defaultValue)
+      )
+    );
   } catch (error) {
     console.warn(error);
   }
