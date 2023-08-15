@@ -19,7 +19,7 @@
   import { config } from "@/config";
   import { onDestroy } from "svelte";
 
-  export let open: boolean = false;
+  export let open: boolean = $isCustomCommand;
 
   let customCommand = getSettingsString($selectedSettings);
 
