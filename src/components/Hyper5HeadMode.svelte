@@ -74,6 +74,7 @@
         <UiInputCheckbox
           label="Custom Command"
           disabled={$isConverting}
+          checked={$isCustomCommand}
           on:input={(e) => onClickIsCustomCommand(e.target.checked)}
         />
       </div>
