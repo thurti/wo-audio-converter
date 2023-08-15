@@ -1,6 +1,6 @@
 <script lang="ts">
   import { config } from "@/config";
-  import { onDestroy, onMount } from "svelte";
+  import { onDestroy } from "svelte";
   import UiButton from "./ui/UIButton.svelte";
   import { fade } from "svelte/transition";
   import { isConverting } from "@/store";
@@ -26,8 +26,6 @@
     if (navigator.onLine === false) {
       return;
     }
-
-    console.log("Checking for sw update");
 
     try {
       registration.update();
