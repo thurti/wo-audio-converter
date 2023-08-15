@@ -21,19 +21,6 @@
   });
 </script>
 
-<svelte:head>
-  <title>{config.title} | worksoffline.io</title>
-  <meta name="description" content="" />
-  <meta name="keywords" content="" />
-  <!-- add open graph -->
-  <meta property="og:title" content={`${config.title} | worksoffline.io`} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={config.url} />
-  <!-- <meta property="og:image" content="og-image.png" /> -->
-  <meta property="og:description" content="" />
-  <meta property="og:site_name" content={config.title} />
-</svelte:head>
-
 <div class="min-h-screen w-full p-1 theme-{config.colorScheme}">
   {#if !offlineReady}
     <UiContainer isOpen={false}>

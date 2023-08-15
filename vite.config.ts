@@ -58,7 +58,7 @@ export default ({ mode }) => {
         manifest: {
           name: "Audio File Converter",
           short_name: "Audio Converter",
-          description: "Converts audio files to other formats.",
+          description: "Badge convert your audio files.",
           start_url: "./index.html",
           display: "standalone",
           icons: [
@@ -93,7 +93,7 @@ export default ({ mode }) => {
       },
     },
     esbuild: {
-      // drop: ["console", "debugger"],
+      drop: ["console", "debugger"],
     },
     preview: {
       headers: {

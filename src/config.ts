@@ -10,7 +10,6 @@ export const config = {
   title: "Audio File Converter",
   localStoragePrefix: "wo-audio-converter",
   notificationIcon: "/icons/android-chrome-192x192.png",
-  description: "",
   colorScheme: "zinc-emerald",
   allowedFormats: "audio/*, video/*",
   maxFileSizeMb: 2000, //2GB hard wasm max
