@@ -10,7 +10,8 @@
     "build-preview": "npm run copy-ffmpeg && vite build --mode preview && npm run preview",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "copy-ffmpeg": "mkdir -p ./public/lib/ffmpeg/core/dist && cp ./node_modules/@ffmpeg/core-mt/dist/esm/* ./public/lib/ffmpeg/core/dist"
+    "copy-ffmpeg": "mkdir -p ./public/lib/ffmpeg/core/dist && cp ./node_modules/@ffmpeg/core-mt/dist/esm/* ./public/lib/ffmpeg/core/dist",
+    "deploy": "sh deploy.sh > deploy.log 2>&1"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.5",

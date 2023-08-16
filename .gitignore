@@ -27,3 +27,4 @@ dist-ssr
 !.prettierrc
 !.env.development
 !.env.preview
+deploy.sh
