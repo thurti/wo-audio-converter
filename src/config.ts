@@ -22,7 +22,7 @@ export const config = {
       { id: "wav", label: "wav", value: "wav", mimetype: "audio/wav" },
       { id: "mp3", label: "mp3", value: "mp3", mimetype: "audio/mp3" },
       { id: "ogg", label: "ogg", value: "ogg", mimetype: "audio/ogg" },
-      { id: "m4a", label: "m4a", value: "m4a", mimetype: "audio/mp4" },
+      { id: "m4a", label: "aac (m4a)", value: "m4a", mimetype: "audio/mp4" },
       { id: "flac", label: "flac", value: "flac", mimetype: "audio/flac" },
     ],
   },
