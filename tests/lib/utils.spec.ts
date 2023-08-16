@@ -32,6 +32,7 @@ describe("lib/utils", () => {
         id: "mp3",
         label: "mp3",
         value: "mp3",
+        ext: "mp3",
         mimetype: "audio/mp3",
       });
       expect(filename).toEqual("te.st asd.mp3");
@@ -42,6 +43,7 @@ describe("lib/utils", () => {
         id: "mp3",
         label: "mp3",
         value: "mp3",
+        ext: "mp3",
         mimetype: "audio/mp3",
       });
       expect(filename).toEqual("test_1.mp3");
@@ -169,6 +171,22 @@ describe("lib/utils", () => {
       const settingsString = getSettingsString(settings);
       expect(settingsString).toEqual("-acodec pcm_s16le -ar 44100");
     });
+
+    it("should remove whitespaces from empty settings", () => {
+      const settings = {
+        test: { id: "a", label: "a", value: "test" },
+        codec: { id: "mp3", label: "mp3", value: " " },
+        "bit-depth": { id: "16", label: "16 bit", value: " " },
+        "sample-rate": {
+          id: "44.1",
+          label: "44.1 kHz",
+          value: "-ar 44100",
+        },
+      };
+
+      const settingsString = getSettingsString(settings);
+      expect(settingsString).toEqual("test -ar 44100");
+    });
   });
 
   describe("#createSettingsFromString()", () => {
@@ -245,6 +263,7 @@ describe("lib/utils", () => {
         id: "mp3",
         label: "mp3",
         value: "mp3",
+        ext: "mp3",
         mimetype: "audio/mp3",
       };
       const settings = {

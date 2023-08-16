@@ -25,7 +25,7 @@ export function getSettingsString(settings: SelectedSettings): string {
 
   return Object.values(settings)
     .reduce((acc, setting) => {
-      return `${acc} ${setting.value}`;
+      return `${acc} ${setting.value}`.trim();
     }, "")
     .trim();
 }
@@ -56,9 +56,9 @@ export function getOutputFilename(
   format: ConfigFormatOption
 ): string {
   const name = filename?.replace(/\.[^/.]+$/, "") ?? "";
-  const newFilename = `${name}.${format.id}`;
+  const newFilename = `${name}.${format.ext}`;
 
-  return filename !== newFilename ? newFilename : `${name}_1.${format.id}`;
+  return filename !== newFilename ? newFilename : `${name}_1.${format.ext}`;
 }
 
 export function getFileExtension(filename: string): string {

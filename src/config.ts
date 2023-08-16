@@ -19,11 +19,48 @@ export const config = {
     label: "Convert to Format",
     value: "format",
     options: [
-      { id: "wav", label: "wav", value: "wav", mimetype: "audio/wav" },
-      { id: "mp3", label: "mp3", value: "mp3", mimetype: "audio/mp3" },
-      { id: "ogg", label: "ogg", value: "ogg", mimetype: "audio/ogg" },
-      { id: "m4a", label: "aac (m4a)", value: "m4a", mimetype: "audio/mp4" },
-      { id: "flac", label: "flac", value: "flac", mimetype: "audio/flac" },
+      {
+        id: "wav",
+        label: "wav",
+        value: "wav",
+        ext: "wav",
+        mimetype: "audio/wav",
+      },
+      {
+        id: "mp3",
+        label: "mp3",
+        value: "mp3",
+        ext: "mp3",
+        mimetype: "audio/mp3",
+      },
+      {
+        id: "ogg",
+        label: "ogg",
+        value: "ogg",
+        ext: "ogg",
+        mimetype: "audio/ogg",
+      },
+      {
+        id: "acc",
+        label: "aac (m4a)",
+        value: "acc",
+        ext: "m4a",
+        mimetype: "audio/mp4",
+      },
+      {
+        id: "flac",
+        label: "flac",
+        value: "flac",
+        ext: "flac",
+        mimetype: "audio/flac",
+      },
+      {
+        id: "alac",
+        label: "alac (m4a)",
+        value: "alac",
+        ext: "m4a",
+        mimetype: "audio/alac",
+      },
     ],
   },
   settings: <ConfigSettings>{
@@ -130,21 +167,21 @@ export const config = {
         ],
       },
     ],
-    m4a: [
+    acc: [
       {
         id: "bitrate",
         label: "Bitrate",
         value: "bitrate",
         options: [
           {
-            id: "m4a-vbr-5",
+            id: "acc-vbr-5",
             label: "VBR 96-112 kbps/channel",
             value: "-vbr 5",
           },
-          { id: "m4a-vbr-4", label: "VBR 64-72 kbps/channel", value: "-vbr 4" },
-          { id: "m4a-vbr-3", label: "VBR 48-56 kbps/channel", value: "-vbr 3" },
-          { id: "m4a-vbr-2", label: "VBR 32-40 kbps/channel", value: "-vbr 2" },
-          { id: "m4a-vbr-1", label: "VBR 20-32 kbps/channel", value: "-vbr 1" },
+          { id: "acc-vbr-4", label: "VBR 64-72 kbps/channel", value: "-vbr 4" },
+          { id: "acc-vbr-3", label: "VBR 48-56 kbps/channel", value: "-vbr 3" },
+          { id: "acc-vbr-2", label: "VBR 32-40 kbps/channel", value: "-vbr 2" },
+          { id: "acc-vbr-1", label: "VBR 20-32 kbps/channel", value: "-vbr 1" },
         ],
       },
       {
@@ -152,14 +189,14 @@ export const config = {
         label: "Sample Rate",
         value: "sample-rate",
         options: [
-          { id: "m4a-sr-none", label: "as source", value: " " },
-          { id: "m4a-sr-8", label: "8 kHz", value: "-ar 8000" },
-          { id: "m4a-sr-16", label: "16 kHz", value: "-ar 16000" },
-          { id: "m4a-sr-22.05", label: "22.05 kHz", value: "-ar 22050" },
-          { id: "m4a-sr-32", label: "32 kHz", value: "-ar 32000" },
-          { id: "m4a-sr-44.1", label: "44.1 kHz", value: "-ar 44100" },
-          { id: "m4a-sr-48", label: "48 kHz", value: "-ar 48000" },
-          { id: "m4a-sr-96", label: "96 kHz", value: "-ar 96000" },
+          { id: "acc-sr-none", label: "as source", value: " " },
+          { id: "acc-sr-8", label: "8 kHz", value: "-ar 8000" },
+          { id: "acc-sr-16", label: "16 kHz", value: "-ar 16000" },
+          { id: "acc-sr-22.05", label: "22.05 kHz", value: "-ar 22050" },
+          { id: "acc-sr-32", label: "32 kHz", value: "-ar 32000" },
+          { id: "acc-sr-44.1", label: "44.1 kHz", value: "-ar 44100" },
+          { id: "acc-sr-48", label: "48 kHz", value: "-ar 48000" },
+          { id: "acc-sr-96", label: "96 kHz", value: "-ar 96000" },
         ],
       },
     ],
@@ -223,12 +260,26 @@ export const config = {
         ],
       },
     ],
+    alac: [
+      {
+        id: "sample-rate",
+        label: "Sample Rate",
+        value: "sample-rate",
+        options: [
+          { id: "alac-sr-none", label: "as source", value: " " },
+          { id: "alac-sr-44.1", label: "44.1 kHz", value: "-ar 44100" },
+          { id: "alac-sr-48", label: "48 kHz", value: "-ar 48000" },
+          { id: "alac-sr-96", label: "96 kHz", value: "-ar 96000" },
+        ],
+      },
+    ],
   },
   defaults: <ConfigDefaults>{
     format: <ConfigFormatOption>{
       id: "mp3",
       label: "mp3",
       value: "mp3",
+      ext: "mp3",
       mimetype: "audio/mp3",
     },
     settings: {
@@ -260,13 +311,13 @@ export const config = {
         },
         "sample-rate": { id: "ogg-sr-none", label: "as source", value: " " },
       },
-      m4a: <{ [id: string]: ConfigSettingOption }>{
+      acc: <{ [id: string]: ConfigSettingOption }>{
         bitrate: {
-          id: "m4a-vbr-5",
+          id: "acc-vbr-5",
           label: "96-112 kbps/channel",
           value: "-vbr 5",
         },
-        "sample-rate": { id: "m4a-sr-none", label: "as source", value: " " },
+        "sample-rate": { id: "acc-sr-none", label: "as source", value: " " },
       },
       flac: <{ [id: string]: ConfigSettingOption }>{
         compression: {
@@ -277,6 +328,18 @@ export const config = {
         "bit-depth": { id: "flac-bd-none", label: "as source", value: " " },
         "sample-rate": {
           id: "flac-sr-none",
+          label: "as source",
+          value: " ",
+        },
+      },
+      alac: <{ [id: string]: ConfigSettingOption }>{
+        codec: {
+          id: "alac-codec",
+          label: "Alac Codec",
+          value: "-acodec alac",
+        },
+        "sample-rate": {
+          id: "alac-sr-none",
           label: "as source",
           value: " ",
         },
@@ -294,6 +357,7 @@ export type ConfigFormats = {
 
 export interface ConfigFormatOption extends UIInputItem {
   mimetype: string;
+  ext: string;
 }
 
 export type ConfigSettings = {

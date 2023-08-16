@@ -60,8 +60,8 @@ describe("lib/FFmpegConverter", () => {
       fetchFile.mockResolvedValueOnce(new Uint8Array([1, 2, 3]));
       await converter.init();
 
-      expect(onSpy).toHaveBeenCalledWith('progress', expect.any(Function));
-      expect(onSpy).toHaveBeenCalledWith('log', expect.any(Function));
+      expect(onSpy).toHaveBeenCalledWith("progress", expect.any(Function));
+      expect(onSpy).toHaveBeenCalledWith("log", expect.any(Function));
       expect(loadSpy).toHaveBeenCalled();
       expect(writeFileSpy).toHaveBeenCalledWith(
         "test.mp4",
@@ -87,7 +87,7 @@ describe("lib/FFmpegConverter", () => {
 
       await converter.init();
       await converter.convert(
-        { id: "mp3", label: "mp3", value: "mp3" },
+        { id: "mp3", label: "mp3", value: "mp3", ext: "mp3" },
         { bitrate: { id: "cbr-4", label: "196 kbit/s", value: "-q:b 196k" } }
       );
 
@@ -99,15 +99,13 @@ describe("lib/FFmpegConverter", () => {
         new Uint8Array([1, 2, 3])
       );
 
-      expect(execSpy).toHaveBeenCalledWith(
-        [
-          "-i",
-          "test.mp4",
-          "-q:b",
-          "196k",
-          "test.mp3"
-        ]
-      );
+      expect(execSpy).toHaveBeenCalledWith([
+        "-i",
+        "test.mp4",
+        "-q:b",
+        "196k",
+        "test.mp3",
+      ]);
 
       expect(readFileSpy).toHaveBeenNthCalledWith(1, "test.mp3");
     });
