@@ -7,6 +7,7 @@
     "dev": "vite",
     "test": "vitest --watch",
     "build": "npm run copy-ffmpeg && vite build",
+    "build-preview": "npm run copy-ffmpeg && vite build --mode preview && npm run preview",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "copy-ffmpeg": "mkdir -p ./public/lib/ffmpeg/core/dist && cp ./node_modules/@ffmpeg/core-mt/dist/esm/* ./public/lib/ffmpeg/core/dist"
