@@ -58,7 +58,7 @@
   export let logger: Writable<string>;
   export let showSparkle: boolean = true;
 
-  let ffmpeg;
+  let ffmpeg: FFmpegConverter;
   let result: Uint8Array;
   let progress = writable<number>(0);
   let isLoading: boolean = false;
@@ -113,8 +113,8 @@
       }
     } catch (error) {
       if (!isCanceled) {
-        isError = true;
         console.warn(error);
+        isError = true;
       }
     } finally {
       if (!isCanceled && !isError) {

@@ -1,27 +1,30 @@
 import { FFmpegConverter } from "@/lib/FFmpegConverter";
-import { fetchFile } from "@ffmpeg/ffmpeg";
+import { fetchFile } from "@ffmpeg/util";
 import { describe } from "vitest";
 
-const setLoggerSpy = vi.fn();
 const loadSpy = vi.fn();
-const FSSpy = vi.fn();
-const runSpy = vi.fn();
-const exitSpy = vi.fn();
-const isLoadedSpy = vi.fn();
+const execSpy = vi.fn();
+const terminateSpy = vi.fn();
+const onSpy = vi.fn();
+const writeFileSpy = vi.fn();
+const readFileSpy = vi.fn();
 
 vi.mock("@ffmpeg/ffmpeg", () => {
-  return {
-    createFFmpeg: () => ({
-      setLogger: setLoggerSpy,
-      load: loadSpy,
-      FS: FSSpy,
-      run: runSpy,
-      exit: exitSpy,
-      isLoaded: isLoadedSpy,
-    }),
-    fetchFile: vi.fn(),
-  };
+  const FFmpeg = vi.fn(() => ({
+    load: loadSpy,
+    exec: execSpy,
+    terminate: terminateSpy,
+    on: onSpy,
+    writeFile: writeFileSpy,
+    readFile: readFileSpy,
+    loaded: true,
+  }));
+  return { FFmpeg };
 });
+
+vi.mock("@ffmpeg/util", () => ({
+  fetchFile: vi.fn(),
+}));
 
 const myFile = new File([""], "test.mp4", { type: "video/mp4" });
 
@@ -57,10 +60,10 @@ describe("lib/FFmpegConverter", () => {
       fetchFile.mockResolvedValueOnce(new Uint8Array([1, 2, 3]));
       await converter.init();
 
-      expect(setLoggerSpy).toHaveBeenCalled();
+      expect(onSpy).toHaveBeenCalledWith('progress', expect.any(Function));
+      expect(onSpy).toHaveBeenCalledWith('log', expect.any(Function));
       expect(loadSpy).toHaveBeenCalled();
-      expect(FSSpy).toHaveBeenCalledWith(
-        "writeFile",
+      expect(writeFileSpy).toHaveBeenCalledWith(
         "test.mp4",
         new Uint8Array([1, 2, 3])
       );
@@ -73,7 +76,6 @@ describe("lib/FFmpegConverter", () => {
     });
 
     it("should return true if ffmpeg is loaded", async () => {
-      isLoadedSpy.mockReturnValueOnce(true);
       await converter.init();
       expect(converter.isLoaded()).toBe(true);
     });
@@ -81,7 +83,6 @@ describe("lib/FFmpegConverter", () => {
 
   describe("#convert()", async () => {
     it("should convert a file", async () => {
-      isLoadedSpy.mockReturnValueOnce(true);
       fetchFile.mockResolvedValueOnce(new Uint8Array([1, 2, 3]));
 
       await converter.init();
@@ -92,38 +93,38 @@ describe("lib/FFmpegConverter", () => {
 
       expect(fetchFile).toHaveBeenCalledWith(myFile);
 
-      expect(FSSpy).toHaveBeenNthCalledWith(
+      expect(writeFileSpy).toHaveBeenNthCalledWith(
         1,
-        "writeFile",
         "test.mp4",
         new Uint8Array([1, 2, 3])
       );
 
-      expect(runSpy).toHaveBeenCalledWith(
-        "-i",
-        "test.mp4",
-        "-q:b",
-        "196k",
-        "test.mp3"
+      expect(execSpy).toHaveBeenCalledWith(
+        [
+          "-i",
+          "test.mp4",
+          "-q:b",
+          "196k",
+          "test.mp3"
+        ]
       );
 
-      expect(FSSpy).toHaveBeenNthCalledWith(2, "readFile", "test.mp3");
+      expect(readFileSpy).toHaveBeenNthCalledWith(1, "test.mp3");
     });
   });
 
   describe("#cancel()", () => {
     it("should not run if ffmpeg is not loaded", async () => {
       await converter.cancel();
-      expect(exitSpy).not.toHaveBeenCalled();
+      expect(terminateSpy).not.toHaveBeenCalled();
       expect(progress.set).not.toHaveBeenCalled();
       expect(loadSpy).not.toHaveBeenCalled();
     });
 
     it("should destroy ffmpeg and call init again", async () => {
-      isLoadedSpy.mockReturnValueOnce(true);
       await converter.init();
       await converter.cancel();
-      expect(exitSpy).toHaveBeenCalled();
+      expect(terminateSpy).toHaveBeenCalled();
       expect(progress.set).toBeCalledWith(0);
       expect(loadSpy).toHaveBeenCalledTimes(2);
     });
@@ -132,14 +133,13 @@ describe("lib/FFmpegConverter", () => {
   describe("#destroy()", () => {
     it("should not run if ffmpeg is not loaded", async () => {
       converter.destroy();
-      expect(exitSpy).not.toHaveBeenCalled();
+      expect(terminateSpy).not.toHaveBeenCalled();
     });
 
     it("should destroy ffmpeg", async () => {
-      isLoadedSpy.mockReturnValueOnce(true);
       await converter.init();
       converter.destroy();
-      expect(exitSpy).toHaveBeenCalled();
+      expect(terminateSpy).toHaveBeenCalled();
     });
   });
 });

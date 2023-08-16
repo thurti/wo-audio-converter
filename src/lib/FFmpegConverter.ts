@@ -1,8 +1,9 @@
-import { createFFmpeg, fetchFile, type FFmpeg } from "@ffmpeg/ffmpeg";
+import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { writable, type Writable } from "svelte/store";
 import { getOutputFilename, createFFmegCommandArgs } from "./utils";
 import type { SelectedSettings } from "@/store";
 import type { ConfigFormatOption } from "@/config";
+import { fetchFile } from "@ffmpeg/util";
 
 export class FFmpegConverter {
   file: File;
@@ -23,30 +24,34 @@ export class FFmpegConverter {
 
   async init(): Promise<void> {
     this.progress.set(0);
-    this.ffmpeg = createFFmpeg({
-      corePath: import.meta.env.VITE_FFMPEG_CORE_PATH,
-      progress: ({ ratio }) => {
-        this.progress.set(ratio);
-      },
+    this.ffmpeg = new FFmpeg();
+
+    this.ffmpeg.on("progress", ({ progress }) => {
+      this.progress.set(progress);
     });
 
-    this.ffmpeg.setLogger(({ type, message }) => {
-      this.logger.update((logger) => `${logger}\n${type}: ${message}`);
+    this.ffmpeg.on("log", ({ message }) => {
+      this.logger.update((logger) => `${logger}\n ${message}`);
     });
 
-    await this.ffmpeg.load();
-    this.ffmpeg.FS("writeFile", this.file.name, await fetchFile(this.file));
+    await this.ffmpeg.load({
+      coreURL: import.meta.env.VITE_FFMPEG_CORE_PATH,
+      wasmURL: import.meta.env.VITE_FFMPEG_WASM_PATH,
+      workerURL: import.meta.env.VITE_FFMPEG_WORKER_PATH,
+    });
+
+    await this.ffmpeg.writeFile(this.file.name, await fetchFile(this.file));
   }
 
   isLoaded(): boolean {
-    return this.ffmpeg?.isLoaded() ?? false;
+    return this.ffmpeg?.loaded ?? false;
   }
 
   async convert(
     format: ConfigFormatOption,
     settings: SelectedSettings
   ): Promise<Uint8Array> {
-    if (!this.ffmpeg?.isLoaded()) {
+    if (!this.isLoaded()) {
       console.warn("Convert: FFmpeg is not loaded. Run init() first.");
       return;
     }
@@ -56,25 +61,25 @@ export class FFmpegConverter {
     const outputFilename = getOutputFilename(filename, format);
     const commandArgs = createFFmegCommandArgs(this.file, format, settings);
 
-    await this.ffmpeg.run(...commandArgs);
-    return this.ffmpeg.FS("readFile", outputFilename);
+    await this.ffmpeg.exec(commandArgs);
+    return (await this.ffmpeg.readFile(outputFilename)) as Uint8Array;
   }
 
   async cancel(): Promise<void> {
-    if (!this.ffmpeg?.isLoaded()) {
+    if (!this.isLoaded()) {
       console.warn("Cancel: FFmpeg is not loaded. Run init() first.");
       return;
     } else {
-      this.ffmpeg.exit();
+      await this.ffmpeg.terminate();
       return this.init();
     }
   }
 
-  destroy(): void {
-    if (!this.ffmpeg?.isLoaded()) {
+  async destroy(): Promise<void> {
+    if (!this.isLoaded()) {
       console.warn("Destroy: FFmpeg is not loaded. Run init() first.");
     } else {
-      this.ffmpeg.exit();
+      await this.ffmpeg.terminate();
     }
   }
 }

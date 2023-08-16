@@ -9,7 +9,7 @@
     "build": "npm run copy-ffmpeg && vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "copy-ffmpeg": "mkdir -p ./public/lib/ffmpeg/core/dist && cp ./node_modules/@ffmpeg/core/dist/* ./public/lib/ffmpeg/core/dist"
+    "copy-ffmpeg": "mkdir -p ./public/lib/ffmpeg/core/dist && cp ./node_modules/@ffmpeg/core-mt/dist/esm/* ./public/lib/ffmpeg/core/dist"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.5",
@@ -37,8 +37,9 @@
     "vitest": "^0.34.1"
   },
   "dependencies": {
-    "@ffmpeg/core": "^0.11.0",
-    "@ffmpeg/ffmpeg": "^0.11.6",
+    "@ffmpeg/core-mt": "^0.12.2",
+    "@ffmpeg/ffmpeg": "^0.12.4",
+    "@ffmpeg/util": "^0.12.0",
     "@tailwindcss/forms": "^0.5.4",
     "lodash": "^4.17.21",
     "svelte-spa-router": "^3.3.0"

@@ -9,6 +9,9 @@ export default ({ mode }) => {
   process.env = Object.assign(process.env, loadEnv(mode, process.cwd(), ""));
 
   return defineConfig({
+    optimizeDeps: {
+      exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
+    },
     plugins: [
       svelte({
         preprocess: [vitePreprocess()],
