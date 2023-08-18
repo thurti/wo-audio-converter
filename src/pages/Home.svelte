@@ -75,7 +75,7 @@
   on:transitionend={() => (containerTransitionEnd = true)}
 >
   <!-- HEADER -->
-  <Header isOpen={$isOpen} title={config.title} />
+  <Header isOpen={$isOpen} title={config.titleHeader} />
 
   <!-- FILE UPLOAD -->
   <UiFileDrop

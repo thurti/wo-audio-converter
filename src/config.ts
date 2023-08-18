@@ -8,6 +8,7 @@ export const config = {
   url: "https://worksoffline.io/audio-converter",
   github: "https://github.com/thurti/wo-audio-converter",
   title: "Audio File Converter",
+  titleHeader: "Audio\nFile Converter",
   localStoragePrefix: "wo-audio-converter",
   notificationIcon: "/icons/android-chrome-192x192.png",
   colorScheme: "zinc-emerald",

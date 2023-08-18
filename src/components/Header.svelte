@@ -2,7 +2,6 @@
   import { link } from "svelte-spa-router";
   import UiHeading from "./ui/UIHeading.svelte";
   import { isWorkerAllowed } from "@/lib/utils";
-  import Faq from "@/pages/FAQ.svelte";
 
   export let title: string;
   export let isOpen = true;
@@ -11,16 +10,9 @@
 </script>
 
 <header class:isOpen>
-  <a class="unstyled" href="/" use:link>
-    <hgroup>
-      <UiHeading>
-        {#if isWorkingOffline}
-          Offline
-        {:else}
-          <strike>Offline</strike>
-        {/if}
-        <br />{title}
-      </UiHeading>
+  <hgroup>
+    <UiHeading class="whitespace-pre">{title}</UiHeading>
+    <a class="unstyled" href="/">
       <UiHeading
         level={2}
         class="mt-3 !font-extralight text-neutral-100 text-opacity-70"
@@ -39,8 +31,8 @@
           {/if}
         {/if}
       </UiHeading>
-    </hgroup>
-  </a>
+    </a>
+  </hgroup>
 </header>
 {#if !isWorkingOffline && !isOpen}
   <p class="relative z-10 py-6 text-center">
