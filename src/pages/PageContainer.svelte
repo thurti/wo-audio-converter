@@ -23,6 +23,7 @@
   });
 
   onDestroy(() => {
+    document.title = `${config.title} | worksoffline.io`;
     document.removeEventListener("keydown", onEscape);
   });
 </script>
