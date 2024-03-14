@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Spartan";
+  src: url("/font/PT Root UI_VF.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 1 1000;
+  font-stretch: 75% 100%;
+}
+
+:root {
+  font-size: 18px;
+  line-height: 1.5;
+
+  color-scheme: light dark;
+  @apply overflow-y-scroll;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-delay: 0ms !important;
+    animation-duration: 1ms !important;
+  }
+}
+
+:not(input):focus-visible {
+  @apply appearance-none;
+  @apply !ring-2;
+  @apply !ring-offset-0;
+  @apply !border-inherit;
+  @apply !outline-0;
+}
+
+input:focus {
+  @apply appearance-none;
+  @apply !ring-offset-0;
+  @apply !border-inherit;
+  @apply !outline-0;
+}
+
+#app {
+  @apply relative;
+  min-height: 100dvh;
+  @apply flex;
+  @apply items-start;
+  @apply justify-center;
+}
+
+.flow {
+  @apply space-y-6;
+}
+
+@screen md {
+  .flow {
+    @apply space-y-12;
+  }
+}
+
+a:not(.unstyled) {
+  @apply font-light;
+  @apply underline;
+  transition: font-weight 0.15s;
+}
+
+a:not(.unstyled):hover {
+  @apply font-medium;
+  @apply !underline;
+}
+
+a:not(.unstyled):visited {
+  filter: brightness(0.8);
+}
+
+.theme-border-color-50 {
+  border-color: rgba(var(--theme-border-color), 0.5);
+}
+
+.theme-border-color-30 {
+  border-color: rgba(var(--theme-border-color), 0.3);
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "mp3 new",
+    "label": "mp3 new",
+    "value": "mp3 new",
+    "ext": "mp3",
+    "settings": {
+      "presetSetting": {
+        "id": "presetSetting",
+        "label": "Custom",
+        "value": "-vn -acodec libmp3lame -q:a 0"
+      }
+    },
+    "isCustomPreset": true
+  },
+  {
+    "id": "ogg2",
+    "label": "ogg2",
+    "value": "ogg2",
+    "ext": "ogg",
+    "settings": {
+      "presetSetting": {
+        "id": "presetSetting",
+        "label": "Custom",
+        "value": "-vn -q:a 9"
+      }
+    },
+    "isCustomPreset": true
+  }
+]
