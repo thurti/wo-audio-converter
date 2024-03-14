@@ -9,6 +9,7 @@
   href={url}
   title="Code on Github"
   class="flex items-center gap-1 !no-underline"
+  style="color: var(--theme-font-color)"
 >
   <svg role="img" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
     ><path

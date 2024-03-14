@@ -58,6 +58,10 @@ input:focus {
   }
 }
 
+a.unstyled {
+  color: var(--theme-font-color);
+}
+
 a:not(.unstyled) {
   @apply font-light;
   @apply underline;
